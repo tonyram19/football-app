@@ -9,51 +9,17 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
+        <!-- My stuff -->
         <link rel="stylesheet" href="/css/main.css" media="screen" charset="utf-8">
         <script type="text/javascript" src="js/app.js"></script>
 
     </head>
 
-    <body ng-controller="MainController as ctrl">
+    <body ui-view class="container">
 
-        <section class="container" ng-hide="aLeagueIsSelected">
 
-            <h1>Competitions</h1>
 
-            <table class="table-striped table-condensed">
-                <thead>
-                    <tr>
-                        <th>League</th>
-                        <th>Number of teams</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="competition in competitions | orderBy:'caption'">
-                        <td><a href="#" ng-click="getTeams(competition.id)">{{competition.caption}}</a></td>
-                        <td>{{competition.numberOfTeams}}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </section>
-
-        <section class="container" ng-show="aLeagueIsSelected">
-
-            <h1>Teams</h1>
-            <table class="table-striped table-condensed">
-                <thead>
-                    <tr>
-                        <th>Team</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="team in teams">
-                        <td>{{team.name}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
 
     </body>
 

@@ -1,0 +1,16 @@
+<h1>Competitions</h1>
+
+<table class="table-striped table-condensed">
+    <thead>
+        <tr>
+            <th>League</th>
+            <th>Number of teams</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="competition in competitions | orderBy:'caption'">
+            <td><a href="#" ng-click="getTeams(competition.id)">{{competition.caption}}</a></td>
+            <td>{{competition.numberOfTeams}}</td>
+        </tr>
+    </tbody>
+</table>

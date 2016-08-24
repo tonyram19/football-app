@@ -17,7 +17,7 @@
 
     <body ng-controller="MainController as ctrl">
 
-        <section class="container">
+        <section class="container" ng-hide="aLeagueIsSelected">
 
             <h1>Competitions</h1>
 
@@ -29,14 +29,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="competition in competitions">
-                        <td>{{competition.caption}}</td>
+                    <tr ng-repeat="competition in competitions | orderBy:'caption'">
+                        <td><a href="#" ng-click="getTeams(competition.id)">{{competition.caption}}</a></td>
                         <td>{{competition.numberOfTeams}}</td>
                     </tr>
                 </tbody>
-
             </table>
 
+        </section>
+
+        <section class="container" ng-show="aLeagueIsSelected">
+
+            <h1>Teams</h1>
+            <table class="table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>Team</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="team in teams">
+                        <td>{{team.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
 
     </body>

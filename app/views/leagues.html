@@ -9,7 +9,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="competition in competitions | orderBy:'caption'">
-            <td><a href="/#/teams" ng-click="setCurrentLeague(competition.id)">{{competition.caption}}</a></td>
+            <td><a href="/#/table" ng-click="setCurrentLeague(competition.id)">{{competition.caption}}</a></td>
             <td>{{competition.numberOfTeams}}</td>
         </tr>
     </tbody>

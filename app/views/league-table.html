@@ -1,0 +1,32 @@
+<h1>Teams</h1>
+
+<table class="table table-striped table-condensed table-responsive">
+    <thead>
+        <tr>
+            <th>Pos.</th>
+            <th>Team</th>
+            <th>Pts.</th>
+            <th>Matches</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Draws</th>
+            <th>Goals</th>
+            <th>Goals against</th>
+            <th>Goals difference</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="team in teams | orderBy:'name'">
+            <td>{{team.position}}</td>
+            <td><img ng-src="{{team.crestURI}}" class="teamCrestImg"/><a href="#">{{team.teamName}}</a></td>
+            <td>{{team.points}}</td>
+            <td>{{team.playedGames}}</td>
+            <td>{{team.wins}}</td>
+            <td>{{team.losses}}</td>
+            <td>{{team.draws}}</td>
+            <td>{{team.goals}}</td>
+            <td>{{team.goalsAgainst}}</td>
+            <td>{{team.goalDifference}}</td>
+        </tr>
+    </tbody>
+</table>

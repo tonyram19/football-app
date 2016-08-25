@@ -49,6 +49,7 @@ app.controller('LeaguesController', ['$http', '$scope', 'FootballService', funct
         }).then(function(response) {
             $scope.competitions = response.data;
             $scope.leaguesLoaded = true;
+            console.log(response.data);
         });
     };
 
@@ -69,7 +70,7 @@ app.controller('TableController', ['$http', '$scope', 'FootballService', functio
             },
             url: 'https://api.football-data.org/v1/competitions/' + FootballService.getCurrentLeague() + '/leagueTable'
         }).then(function (response) {
-            $scope.table = response.data.standing;
+            $scope.table = response.data;
             $scope.tableLoaded = true;
         });
     };

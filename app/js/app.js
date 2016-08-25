@@ -32,6 +32,8 @@ app.service('FootballService', ['$http', '$q', function($http, $q) {
 
 app.controller('LeaguesController', ['$http', '$scope', 'FootballService', function($http, $scope, FootballService) {
 
+    $scope.leaguesLoaded = false;
+
     $scope.setCurrentLeague = function(leagueID) {
             FootballService.setCurrentLeague(leagueID);
     };
@@ -46,6 +48,7 @@ app.controller('LeaguesController', ['$http', '$scope', 'FootballService', funct
             url: 'http://api.football-data.org/v1/competitions/?season=2016'
         }).then(function(response) {
             $scope.competitions = response.data;
+            $scope.leaguesLoaded = true;
         });
     };
 
@@ -55,7 +58,9 @@ app.controller('LeaguesController', ['$http', '$scope', 'FootballService', funct
 
 app.controller('TableController', ['$http', '$scope', 'FootballService', function($http, $scope, FootballService) {
 
-    $scope.getTeams = function(competitionID) {
+    $scope.tableLoaded = false;
+
+    $scope.getTable = function(competitionID) {
         $http({
             method: 'GET',
             headers: {
@@ -64,11 +69,11 @@ app.controller('TableController', ['$http', '$scope', 'FootballService', functio
             },
             url: 'http://api.football-data.org/v1/competitions/' + FootballService.getCurrentLeague() + '/leagueTable'
         }).then(function (response) {
-            $scope.teams = response.data.standing;
-            console.log(response.data.standing);
+            $scope.table = response.data.standing;
+            $scope.tableLoaded = true;
         });
     };
 
-    $scope.getTeams();
+    $scope.getTable();
 
 }]);

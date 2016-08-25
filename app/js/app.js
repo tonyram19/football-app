@@ -45,7 +45,7 @@ app.controller('LeaguesController', ['$http', '$scope', 'FootballService', funct
                 'Content-Type': 'text/json',
                 'X-Auth-Token': '1d8e93dbf9104d589b510b458144851b'
             },
-            url: 'http://api.football-data.org/v1/competitions/?season=2016'
+            url: 'https://api.football-data.org/v1/competitions/?season=2016'
         }).then(function(response) {
             $scope.competitions = response.data;
             $scope.leaguesLoaded = true;
@@ -67,7 +67,7 @@ app.controller('TableController', ['$http', '$scope', 'FootballService', functio
                 'Content-Type': 'text/json',
                 'X-Auth-Token': '1d8e93dbf9104d589b510b458144851b'
             },
-            url: 'http://api.football-data.org/v1/competitions/' + FootballService.getCurrentLeague() + '/leagueTable'
+            url: 'https://api.football-data.org/v1/competitions/' + FootballService.getCurrentLeague() + '/leagueTable'
         }).then(function (response) {
             $scope.table = response.data.standing;
             $scope.tableLoaded = true;

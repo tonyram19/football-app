@@ -21,7 +21,10 @@
     <tbody>
         <tr ng-repeat="team in table.standing | orderBy:'name'">
             <td>{{team.position}}</td>
-            <td><img ng-src="{{team.crestURI}}" class="teamCrestImg"/><a href="">{{team.teamName}}</a></td>
+            <td>
+                <img ng-src="{{team.crestURI}}" class="teamCrestImg"/>
+                <a href="/#/team" ng-click="setCurrentTeam(team._links.team.href)">{{team.teamName}}</a>
+            </td>
             <td>{{team.points}}</td>
             <td>{{team.playedGames}}</td>
             <td>{{team.wins}}</td>

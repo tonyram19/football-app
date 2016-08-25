@@ -7,10 +7,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
         controller: 'LeaguesController as Ctrl'
     });
 
-    $stateProvider.state('teams', {
+    $stateProvider.state('table', {
         url: '/table',
         templateUrl: 'views/league-table.html',
         controller: 'TableController as Ctrl'
+    });
+
+    $stateProvider.state('team', {
+        url: '/team',
+        templateUrl: 'views/team.html',
+        controller: 'TeamController as Ctrl'
     });
 
 });
@@ -25,6 +31,14 @@ app.service('FootballService', ['$http', '$q', function($http, $q) {
 
     this.getCurrentLeague = function() {
         return myThis.currentLeague;
+    };
+
+    this.setCurrentTeam = function(teamLink) {
+        myThis.currentTeam = teamLink;
+    };
+
+    this.getCurrentTeam = function() {
+        return myThis.currentTeam;
     };
 
 }]);
@@ -49,7 +63,6 @@ app.controller('LeaguesController', ['$http', '$scope', 'FootballService', funct
         }).then(function(response) {
             $scope.competitions = response.data;
             $scope.leaguesLoaded = true;
-            console.log(response.data);
         });
     };
 
@@ -60,6 +73,10 @@ app.controller('LeaguesController', ['$http', '$scope', 'FootballService', funct
 app.controller('TableController', ['$http', '$scope', 'FootballService', function($http, $scope, FootballService) {
 
     $scope.tableLoaded = false;
+
+    $scope.setCurrentTeam = function(teamLink) {
+        FootballService.setCurrentTeam(teamLink);
+    };
 
     $scope.getTable = function(competitionID) {
         $http({
@@ -76,5 +93,28 @@ app.controller('TableController', ['$http', '$scope', 'FootballService', functio
     };
 
     $scope.getTable();
+
+}]);
+
+app.controller('TeamController', ['$http', '$scope', 'FootballService', function($http, $scope, FootballService) {
+
+    $scope.teamLoaded = false;
+
+    $scope.getTeam = function(teamID) {
+        $http({
+            method: 'GET',
+            headers: {
+                'Content-Type': 'text/json',
+                'X-Auth-Token': '1d8e93dbf9104d589b510b458144851b'
+            },
+            url: FootballService.getCurrentTeam()
+        }).then(function (response) {
+            $scope.team = response.data;
+            $scope.teamLoaded = true;
+            console.log($scope.team);
+        });
+    };
+
+    $scope.getTeam();
 
 }]);

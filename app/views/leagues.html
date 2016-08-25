@@ -1,4 +1,4 @@
-<h1>Competitions</h1>
+<h1 >Competitions</h1>
 
 <table class="table-striped table-condensed">
     <thead>
@@ -9,7 +9,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="competition in competitions | orderBy:'caption'">
-            <td><a href="#" ng-click="getTeams(competition.id)">{{competition.caption}}</a></td>
+            <td><a href="/#/teams" ng-click="setCurrentLeague(competition.id)">{{competition.caption}}</a></td>
             <td>{{competition.numberOfTeams}}</td>
         </tr>
     </tbody>

@@ -1,28 +1,41 @@
 var app = angular.module('fotballApp', ['ui.router']);
 
+app.service('FootballService', ['$http', '$q', function($http, $q) {
+
+    myThis = this;
+
+    this.setCurrentLeague = function(leagueID) {
+        myThis.currentLeague = leagueID;
+    };
+
+    this.getCurrentLeague = function() {
+        return myThis.currentLeague;
+    };
+
+}]);
+
 app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('leagues', {
-        url: '/leagues',
+        url: '',
         templateUrl: 'views/leagues.html',
-        controller: 'MainController as Ctrl'
+        controller: 'LeaguesController as Ctrl'
     });
 
     $stateProvider.state('teams', {
         url: '/teams',
-        templateUrl: 'views/leagues.html',
-        controller: 'MainController as Ctrl'
+        templateUrl: 'views/teams.html',
+        controller: 'TeamsController as Ctrl'
     });
 
 });
 
-app.controller('MainController', ['$http', '$scope', function($http, $scope) {
+app.controller('LeaguesController', ['$http', '$scope', 'FootballService', function($http, $scope, FootballService) {
 
-    $scope.nameText = "Hey!";
-    $scope.leaguesLoaded = false;
-    $scope.aLeagueIsSelected = false;
+    $scope.setCurrentLeague = function(leagueID) {
+            FootballService.setCurrentLeague(leagueID);
+    };
 
     $scope.getLeagues = function() {
-
         $http({
             method: 'GET',
             headers: {
@@ -30,31 +43,30 @@ app.controller('MainController', ['$http', '$scope', function($http, $scope) {
                 'X-Auth-Token': '1d8e93dbf9104d589b510b458144851b'
             },
             url: 'http://api.football-data.org/v1/competitions/?season=2016'
-        }).then(function successCallback(response) {
+        }).then(function(response) {
             $scope.competitions = response.data;
-            $scope.leaguesLoaded = true;
-        }, function errorCallback(response) {
         });
-
     };
-    $scope.getTeams = function(competitionID) {
 
+    $scope.getLeagues();
+
+}]);
+
+app.controller('TeamsController', ['$http', '$scope', 'FootballService', function($http, $scope, FootballService) {
+
+    $scope.getTeams = function(competitionID) {
         $http({
             method: 'GET',
             headers: {
                 'Content-Type': 'text/json',
                 'X-Auth-Token': '1d8e93dbf9104d589b510b458144851b'
             },
-            url: 'http://api.football-data.org/v1/competitions/' + competitionID + '/teams'
-        }).then(function successCallback(response) {
+            url: 'http://api.football-data.org/v1/competitions/' + FootballService.getCurrentLeague() + '/teams'
+        }).then(function (response) {
             $scope.teams = response.data.teams;
-            $scope.aLeagueIsSelected = true;
-            console.log($scope.teams[0]);
-        }, function errorCallback(response) {
         });
-
     };
 
-    $scope.getLeagues();
+    $scope.getTeams();
 
 }]);
